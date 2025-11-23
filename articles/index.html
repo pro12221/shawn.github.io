@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>文章目录 · Shawn</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="traffic">
+      <span class="btn red"></span>
+      <span class="btn yellow"></span>
+      <span class="btn green"></span>
+    </div>
+    <nav class="menu">
+      <a href="/">主页</a>
+      <a href="/articles/">文章</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section class="window">
+      <div class="window-header">
+        <div class="traffic">
+          <span class="btn red"></span>
+          <span class="btn yellow"></span>
+          <span class="btn green"></span>
+        </div>
+        <div class="title">文章目录</div>
+      </div>
+      <div class="window-body">
+        <ul id="article-list" class="list">
+          <li class="muted">正在加载文章…</li>
+        </ul>        <p class="muted small">将 <code>.md</code> 文件放入此目录即可自动识别。</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    (async () => {
+      const list = document.getElementById('article-list');
+      try {
+        const res = await fetch('?json');
+        if (!res.ok) throw new Error('无法读取目录');
+        const files = await res.json();
+        const md = files.filter(f => f.endsWith('.md'));
+        if (!md.length) {
+          list.innerHTML = '<li class="muted">暂时还没有文章</li>';
+          return;
+        }
+        list.innerHTML = md.map(f => 
+          `<li><a href="article.html?file=${encodeURIComponent(f)}">${f.replace(/\.md$/, '')}</a></li>`
+        ).join('');
+      } catch (e) {
+        list.innerHTML = `<li class="muted">${e.message}</li>`;
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="article-title">文章 · Shawn</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* 额外样式：代码高亮、表格、引用等 */
+    .markdown-body { line-height: 1.7; }
+    .markdown-body h1,
+    .markdown-body h2,
+    .markdown-body h3 {
+      margin-top: 1.6em;
+      margin-bottom: 0.4em;
+      font-weight: 600;
+    }
+    .markdown-body pre {
+      background: #f6f8fa;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+    .markdown-body code {
+      background: #f3f4f6;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    .markdown-body blockquote {
+      border-left: 4px solid var(--border);
+      margin: 1em 0;
+      padding-left: 1em;
+      color: var(--muted);
+    }
+    .markdown-body table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+    }
+    .markdown-body th,
+    .markdown-body td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+    }
+    .markdown-body th {
+      background: var(--bg);
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="traffic">
+      <span class="btn red"></span>
+      <span class="btn yellow"></span>
+      <span class="btn green"></span>
+    </div>
+    <nav class="menu">
+      <a href="/">主页</a>
+      <a href="/articles/">文章</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section class="window">
+      <div class="window-header">
+        <div class="traffic">
+          <span class="btn red"></span>
+          <span class="btn yellow"></span>
+          <span class="btn green"></span>
+        </div>
+        <div class="title" id="window-title">文章</div>
+      </div>
+      <div class="window-body markdown-body" id="content">
+        <p class="muted">正在加载…</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 引入 marked 解析器 -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    (async () => {
+      const params = new URLSearchParams(location.search);
+      const file = params.get('file');
+      if (!file) {
+        document.getElementById('content').innerHTML = '<p class="muted">缺少文件名参数</p>';
+        return;
+      }
+
+      try {
+        const res = await fetch(file);
+        if (!res.ok) throw new Error('无法加载文章');
+        const md = await res.text();
+
+        // 解析标题：第一行 # 标题
+        const titleMatch = md.match(/^#\s+(.+)$/m);
+        const title = titleMatch ? titleMatch[1] : file.replace(/\.md$/, '');
+        document.title = title + ' · Shawn';
+        document.getElementById('window-title').textContent = title;
+
+        // 渲染 markdown
+        document.getElementById('content').innerHTML = marked.parse(md);
+      } catch (e) {
+        document.getElementById('content').innerHTML = `<p class="muted">${e.message}</p>`;
+      }
+    })();
+  </script>
+</body>
+</html>
