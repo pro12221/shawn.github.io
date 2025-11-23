@@ -1,22 +1,59 @@
 ---
-layout: default
+layout: null
 title: Home
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cloud Native Voyager</title>
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+</head>
+<body>
 
-<nav class="site-nav">
-  <a href="{{ '/about/' | relative_url }}" class="page-link">User_Profile</a>
-  <a href="{{ '/categories/' | relative_url }}" class="page-link">Categories</a>
-</nav>
+  <div id="particles-js"></div>
 
-<div class="hero-section">
-  <svg class="k8s-icon" viewBox="0 0 24 24" fill="none" stroke="#326ce5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="12" cy="12" r="10"></circle>
-    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-    <path d="M2 12h20"></path>
-    <path d="M12 12l4.3-4.3"></path>
-    <path d="M12 12l-4.3 4.3"></path>
-  </svg>
+  <nav class="site-nav">
+    <a href="{{ '/about/' | relative_url }}" class="page-link">User_Profile</a>
+    <a href="{{ '/categories/' | relative_url }}" class="page-link">Categories</a>
+  </nav>
 
-  <h1 class="site-title-hero">CLOUD NATIVE</h1>
-  <p style="color: #888;">> deploying_ideas_to_production...</p>
-</div>
+  <div class="hero-section">
+    <svg class="k8s-icon" viewBox="0 0 24 24" fill="none" stroke="#326ce5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+      <path d="M2 12h20"></path>
+      <path d="M12 12l4.3-4.3"></path>
+      <path d="M12 12l-4.3 4.3"></path>
+    </svg>
+    <h1 class="site-title-hero">CLOUD NATIVE</h1>
+    <p style="color: #888;">> deploying_ideas_to_production...</p>
+  </div>
+
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60 },
+        "color": { "value": "#326ce5" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3, "random": true },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.2, "width": 1 },
+        "move": { "enable": true, "speed": 2 }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+
+</body>
+</html>
