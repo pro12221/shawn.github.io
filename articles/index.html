@@ -12,11 +12,10 @@
       <span class="btn red"></span>
       <span class="btn yellow"></span>
       <span class="btn green"></span>
-    </div>
-    <nav class="menu">
-      <a href="/">主页</a>
-      <a href="/articles/">文章</a>
-    </nav>
+    </div>    <nav class="menu">
+>      <a href="../">主页</a>
+>      <a href="./categories.html">文章</a>
+>    </nav>
   </header>
   <main class="container">
     <section class="window">
@@ -31,23 +30,29 @@
       <div class="window-body">
         <ul id="article-list" class="list">
           <li class="muted">正在加载文章…</li>
-        </ul>        <p class="muted small">将 <code>.md</code> 文件放入此目录即可自动识别。</p>
+        </ul>
+        <p class="muted small">将 <code>.md</code> 文件放入此目录即可自动识别。<br>当前标签：<span id="current-tag" class="muted">全部</span></p>
       </div>
     </section>
   </main>
   <script>
     (async () => {
       const list = document.getElementById('article-list');
+      const currentTag = new URLSearchParams(location.search).get('tag') || '全部';
+      document.getElementById('current-tag').textContent = currentTag;
       try {
         const res = await fetch('?json');
         if (!res.ok) throw new Error('无法读取目录');
-        const files = await res.json();
-        const md = files.filter(f => f.endsWith('.md'));
-        if (!md.length) {
-          list.innerHTML = '<li class="muted">暂时还没有文章</li>';
+        let files = await res.json();
+        files = files.filter(f => f.endsWith('.md'));
+        if (currentTag !== '全部') {
+          files = files.filter(f => f.toLowerCase().includes(currentTag.toLowerCase()));
+        }
+        if (!files.length) {
+          list.innerHTML = '<li class="muted">暂无文章</li>';
           return;
         }
-        list.innerHTML = md.map(f => 
+        list.innerHTML = files.map(f => 
           `<li><a href="article.html?file=${encodeURIComponent(f)}">${f.replace(/\.md$/, '')}</a></li>`
         ).join('');
       } catch (e) {

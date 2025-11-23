@@ -12,13 +12,12 @@
       <span class="btn red"></span>
       <span class="btn yellow"></span>
       <span class="btn green"></span>
-    </div>
-    <nav class="menu">
-      <a href="/">主页</a>
-      <a href="/articles/">文章</a>
-    </nav>
+    </div>    <nav class="menu">
+>      <a href="./">主页</a>
+>      <a href="./articles/categories.html">文章</a>
+>    </nav>
   </header>
-  <main class="container">
+  <main class="container" style="max-width: 680px; grid-template-columns: 1fr;">
     <section class="window">
       <div class="window-header">
         <div class="traffic">
@@ -47,23 +46,7 @@
           <span class="tech-icon" title="GitHub Actions">🤖</span>
           <span class="tech-icon" title="Istio">🕸️</span>
         </div>
-        <div class="actions">
-          <a class="btn primary" href="articles/">技术文章</a>
-          <a class="btn" href="https://github.com/shawn-ops" target="_blank">GitHub</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="window">
-      <div class="window-header">
-        <div class="traffic">
-          <span class="btn red"></span>
-          <span class="btn yellow"></span>
-          <span class="btn green"></span>
-        </div>
-        <div class="title">最近动态</div>
-      </div>
-      <div class="window-body">
+        <h3 style="margin-top:24px;margin-bottom:8px;font-size:18px;">最近动态</h3>
         <ul class="list">
           <li>🔧 维护 K8s 集群 99.9% SLA 一年</li>
           <li>🚀 用 ArgoCD 实现 GitOps 工作流</li>
@@ -71,7 +54,8 @@
           <li>📝 持续更新技术博客与踩坑记录</li>
         </ul>
         <div class="actions">
-          <a class="btn" href="articles/">阅读更多</a>
+          <a class="btn primary" href="./articles/categories.html">技术文章</a>
+          <a class="btn" href="https://github.com/pro12221" target="_blank">GitHub</a>
         </div>
       </div>
     </section>
